@@ -2,7 +2,7 @@ node {
   git url: 'https://github.com/jglick/simple-maven-project-with-tests.git'
   def v = version()
   if (v) {
-    echo "Building version ${v}"
+    echo "Building version ${v} ..."
   }
   def mvnHome = tool 'M3'
   bat "${mvnHome}\\bin\\mvn -B verify -Dmaven.test.failure.ignore verify"
