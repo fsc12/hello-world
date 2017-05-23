@@ -1,13 +1,14 @@
 #!groovy
 node {
   stage('Build') {
-     git url: 'https://github.com/jglick/simple-maven-project-with-tests.git'
+     git url: 'https://github.com/fsc12/user-registration-V2.git'
      def v = version()
      if (v) {
        echo "Building version ${v} ...."
      }
   }  
   stage('Test') {
+      sh "cd user-registration-application"
       sh "mvn -B verify -Dmaven.test.failure.ignore verify"
       step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar', fingerprint: true])
       step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
