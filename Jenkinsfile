@@ -8,7 +8,8 @@ node {
      }
   }  
   stage('Test') {
-      sh "mvn -B verify -Dmaven.test.failure.ignore verify"
+    def javaHome = tool 'JAVA_HOME'
+      sh "JAVA_HOME=$javaHome  mvn -B verify -Dmaven.test.failure.ignore verify"
       step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar', fingerprint: true])
       step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
   }
