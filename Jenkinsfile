@@ -8,7 +8,7 @@ node {
      }
   }  
   stage('SonarQube analysis') {
-    withSonarQubeEnv('SonarQubeScanner3.0.3') {
+    withSonarQubeEnv('SonarQubeScanner3') {
       // requires SonarQube Scanner for Maven 3.2+
       sh 'mvn -f pom-commit.pom org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
     }
