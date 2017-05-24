@@ -12,6 +12,7 @@ node {
       // requires SonarQube Scanner for Maven 3.2+
       sh 'mvn -f pom-commit.pom org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
     }
+  }  
   
   stage('Build') {
       sh "mvn -f pom-commit.pom -B verify -Dmaven.test.failure.ignore verify"
