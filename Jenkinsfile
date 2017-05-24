@@ -8,8 +8,7 @@ node {
      }
   }  
   stage('Test') {
-      sh "cd user-registration-application"
-      sh "mvn -B verify -Dmaven.test.failure.ignore verify"
+      sh "mvn -f pom-commit.pom -B verify -Dmaven.test.failure.ignore verify"
       step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar', fingerprint: true])
       step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
   }
