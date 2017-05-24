@@ -7,6 +7,12 @@ node {
        echo "Building version ${v} ...."
      }
   }  
+  stage('SonarQube analysis') {
+    withSonarQubeEnv('SonarQubeScanner3.0.3') {
+      // requires SonarQube Scanner for Maven 3.2+
+      sh 'mvn -f pom-commit.pom org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+    }
+  
   stage('Build') {
       sh "mvn -f pom-commit.pom -B verify -Dmaven.test.failure.ignore verify"
       step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar', fingerprint: true])
