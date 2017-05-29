@@ -1,14 +1,15 @@
 #!groovy
+def majorVersionNumber = 1.0
+def version  = "${majorVersionNumber}.${env.BUILD_NUMBER}"
+
 node {
   stage('Checkout') {
      git url: 'https://github.com/fsc12/user-registration-V2.git'
-    def majorVersionNumber = 1.0
-    def version  = "${majorVersionNumber}.${env.BUILD_NUMBER}"
-     echo "Building version ${version} ...."
   }  
   stage('SonarQube analysis') {
     withSonarQubeEnv('SonarQubeScanner3') {
       // requires SonarQube Scanner for Maven 3.2+
+      echo "Building version ${version} ...."
       sh 'mvn version:set -DnewVersion=${version}'
       sh 'mvn -f pom-commit.pom org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
     }
