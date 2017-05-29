@@ -2,10 +2,9 @@
 node {
   stage('Checkout') {
      git url: 'https://github.com/fsc12/user-registration-V2.git'
-    def v = version().${env.BUILD_NUMBER}
-     if (v) {
-       echo "Building version ${v} ...."
-     }
+    def majorVersionNumber = 1.0
+    def version  = "${majorVersionNumber}.${env.BUILD_NUMBER}"
+     echo "Building version ${version} ...."
   }  
   stage('SonarQube analysis') {
     withSonarQubeEnv('SonarQubeScanner3') {
