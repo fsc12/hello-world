@@ -2,7 +2,7 @@
 node {
   stage('Checkout') {
      git url: 'https://github.com/fsc12/user-registration-V2.git'
-     def v = version()
+    def v = version().${env.BUILD_NUMBER}
      if (v) {
        echo "Building version ${v} ...."
      }
